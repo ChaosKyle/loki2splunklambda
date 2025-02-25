@@ -21,7 +21,7 @@ The deployment script sets up the following AWS resources:
 - **Lambda Function**: `loki-log-processor` - Processes the files
 - **IAM Role & Policy**: `loki-processor-role` - Grants necessary permissions to Lambda
 
-![Architecture Diagram](https://your-lucid-chart-diagram-url.png)
+![Architecture Diagram](https://lucid.app/lucidchart/930fc1fa-efbd-4f0e-bfe2-fe81c542004a/edit?viewport_loc=-2355%2C-790%2C3061%2C1388%2C0_0&invitationId=inv_ae79be90-3012-4a80-b327-7d082246386d)
 
 ## Prerequisites
 
