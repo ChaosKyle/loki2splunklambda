@@ -122,7 +122,7 @@ Store the Lambda code and deployment scripts in a Git repository
 Use AWS CloudFormation, Terraform, or AWS SAM to define your infrastructure
 Implement CI/CD pipelines for automated testing and deployment
 
-Security Enhancements
+##  Security Enhancements
 
 Enable S3 bucket encryption (SSE-S3 or KMS)
 Configure VPC for Lambda with private subnets if needed
@@ -132,7 +132,7 @@ Set up S3 bucket policies to restrict access
 Use Secrets Manager for any sensitive configuration
 Implement versioning on S3 buckets
 
-##Scalability & Reliability
+##  Scalability & Reliability
 
 Configure Lambda concurrency limits appropriate for your load
 Set up S3 event batching for high-volume scenarios
@@ -140,7 +140,7 @@ Implement dead-letter queues for failed Lambda executions
 Create CloudWatch alarms for error thresholds
 Implement cross-region replication for disaster recovery
 
-##Cost Optimization
+##  Cost Optimization
 
 Configure Lambda memory allocation based on actual needs
 Implement S3 lifecycle policies for archiving or expiring old data
