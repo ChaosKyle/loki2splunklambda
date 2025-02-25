@@ -116,12 +116,12 @@ MIT
 
 ## Production Best Practices
 
-**When deploying this solution in a production environment, consider implementing these additional best practices:
-**Infrastructure as Code (IaC)
+*When deploying this solution in a production environment, consider implementing these additional best practices:*
+- Infrastructure as Code (IaC)
 
-**Store the Lambda code and deployment scripts in a Git repository
-**Use AWS CloudFormation, Terraform, or AWS SAM to define your infrastructure
-**Implement CI/CD pipelines for automated testing and deployment
+- Store the Lambda code and deployment scripts in a Git repository
+- Use AWS CloudFormation, Terraform, or AWS SAM to define your infrastructure
+- Implement CI/CD pipelines for automated testing and deployment
 
 ##  Security Enhancements
 
