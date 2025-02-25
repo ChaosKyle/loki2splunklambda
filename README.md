@@ -21,7 +21,7 @@ The deployment script sets up the following AWS resources:
 - **Lambda Function**: `loki-log-processor` - Processes the files
 - **IAM Role & Policy**: `loki-processor-role` - Grants necessary permissions to Lambda
 
-![Architecture Diagram](https://github.com/ChaosKyle/loki2splunklambda/blob/main/loki2splunk.png)
+![Architecture Diagram](https://github.com/ChaosKyle/loki2splunklambda/blob/main/loki2json.png)
 
 ## Prerequisites
 
