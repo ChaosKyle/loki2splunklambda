@@ -114,7 +114,7 @@ The Lambda function uses the following Python libraries:
 ## License
 MIT
 
-Production Best Practices
+## Production Best Practices
 When deploying this solution in a production environment, consider implementing these additional best practices:
 Infrastructure as Code (IaC)
 
@@ -132,7 +132,7 @@ Set up S3 bucket policies to restrict access
 Use Secrets Manager for any sensitive configuration
 Implement versioning on S3 buckets
 
-Scalability & Reliability
+##Scalability & Reliability
 
 Configure Lambda concurrency limits appropriate for your load
 Set up S3 event batching for high-volume scenarios
@@ -140,7 +140,7 @@ Implement dead-letter queues for failed Lambda executions
 Create CloudWatch alarms for error thresholds
 Implement cross-region replication for disaster recovery
 
-Cost Optimization
+##Cost Optimization
 
 Configure Lambda memory allocation based on actual needs
 Implement S3 lifecycle policies for archiving or expiring old data
