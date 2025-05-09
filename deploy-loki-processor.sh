@@ -97,24 +97,54 @@ def decode_loki_tsdb(content):
         except:
             pass
 
-        # Try JSON format
+        # Try JSON format with improved error handling for Splunk compatibility
         try:
-            return json.loads(decompressed)
+            # Try to load as JSON
+            parsed_json = json.loads(decompressed)
+            
+            # If it's a string that might contain escaped JSON, try to parse it again
+            if isinstance(parsed_json, str):
+                try:
+                    parsed_json = json.loads(parsed_json)
+                except:
+                    pass
+                    
+            # Ensure we have a proper structure for Splunk
+            if not isinstance(parsed_json, dict):
+                parsed_json = {"data": parsed_json}
+                
+            # Add metadata for Splunk
+            parsed_json["_meta"] = {
+                "format": "json",
+                "source_type": "loki_tsdb"
+            }
+            
+            return parsed_json
         except:
             pass
 
-        # Try basic string format
-        try:
-            return {"content": decompressed.decode()}
-        except:
-            pass
+        # Try basic string format with multiple encodings for better Splunk compatibility
+        for encoding in ['utf-8', 'latin-1', 'ascii']:
+            try:
+                decoded_content = decompressed.decode(encoding)
+                return {
+                    "content": decoded_content,
+                    "encoding": encoding,
+                    "format": "text"
+                }
+            except:
+                pass
 
         # If all attempts fail, return binary as base64
         import base64
+        # Use proper base64 encoding with standardized format for Splunk compatibility
+        encoded_content = base64.b64encode(content).decode('utf-8')
         return {
-            "content": base64.b64encode(content).decode(),
+            "content": encoded_content,
             "encoding": "base64",
-            "format": "binary"
+            "format": "binary",
+            "content_length": len(content),
+            "content_type": "application/octet-stream"
         }
 
     except Exception as e:
@@ -142,12 +172,21 @@ def lambda_handler(event, context):
         # Upload JSON to destination bucket
         destination_key = key.replace('.tsdb', '.json').replace('.gz', '').replace('.zip', '')
         logger.info(f"Uploading to destination bucket with key: {destination_key}")
-       
+        
+        # Ensure proper encoding that Splunk can read
+        # Convert to JSON with proper formatting and encoding
+        if isinstance(json_data, dict) or isinstance(json_data, list):
+            json_string = json.dumps(json_data, ensure_ascii=False, indent=4)
+        else:
+            # Handle case where json_data might not be a dict/list
+            json_string = json.dumps({"data": str(json_data)}, ensure_ascii=False, indent=4)
+        
+        # Use UTF-8 encoding for the Body parameter to ensure compatibility with Splunk
         s3_client.put_object(
             Bucket='jsonchunkdestination',
             Key=destination_key,
-            Body=json.dumps(json_data),
-            ContentType='application/json'
+            Body=json_string.encode('utf-8'),
+            ContentType='application/json; charset=utf-8'
         )
        
         logger.info(f"Successfully uploaded to {destination_key}")
